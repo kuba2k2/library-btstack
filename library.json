@@ -1,0 +1,17 @@
+{
+	"name": "BTstack",
+	"version": "1.6.2-pkg.0",
+	"description": "Dual-mode Bluetooth stack, with small memory footprint",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/kuba2k2/library-btstack"
+	},
+	"platforms": [
+		"espressif32",
+		"windows_x86"
+	],
+	"build": {
+		"srcDir": ".",
+		"extraScript": "extra_script.py"
+	}
+}
