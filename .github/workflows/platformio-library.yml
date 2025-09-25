@@ -64,7 +64,6 @@ jobs:
           rm -rf 3rd-party/lc3-google/tools/
           rm -rf 3rd-party/lwip/core/
           rm -rf 3rd-party/segger-rtt/
-          rm -rf 3rd-party/tinydir/
           rm -rf doc/
           rm -rf example/
           rm -rf port/

@@ -8,7 +8,8 @@
 	},
 	"platforms": [
 		"espressif32",
-		"windows_x86"
+		"windows_x86",
+		"linux_x86_64"
 	],
 	"build": {
 		"srcDir": ".",

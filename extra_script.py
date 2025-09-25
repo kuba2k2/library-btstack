@@ -10,6 +10,8 @@ if platform == "espressif32":
     port = "esp32"
 elif platform == "windows_x86":
     port = "windows-winusb"
+elif platform == "linux_x86_64":
+    port = "libusb"
 
 
 defines = set()
@@ -29,6 +31,7 @@ env.Append(
         realpath("3rd-party/lc3-google/include"),
         realpath("3rd-party/md5"),
         realpath("3rd-party/micro-ecc"),
+        realpath("3rd-party/tinydir"),
         realpath("3rd-party/yxml"),
         realpath("include"),
         realpath("platform/embedded"),
@@ -110,6 +113,32 @@ elif port == "windows-winusb":
         LIBS=[
             "setupapi",
             "winusb",
+        ],
+    )
+elif port == "libusb":
+    # from btstack/port/libusb/CMakeLists.txt
+    env.Append(
+        CPPPATH=[
+            realpath("3rd-party/rijndael"),
+            realpath("chipset/realtek"),
+            realpath("chipset/zephyr"),
+            realpath("platform/embedded"),
+            realpath("platform/posix"),
+        ],
+        SRC_FILTER=[
+            "+<3rd-party/rijndael/rijndael.c>",
+            "+<chipset/zephyr/*.c>",
+            "+<chipset/realtek/*.c>",
+            "+<platform/posix/*.c>",
+            "-<platform/posix/le_device_db_fs.c>",
+            "+<platform/libusb/*.c>",
+            "+<platform/linux/*.c>",
+            "+<port/libusb/*.c>",
+        ],
+        LIBS=[
+            "pthread",
+            "m",
+            "usb-1.0",
         ],
     )
 else:
