@@ -419,17 +419,36 @@ static void avrcp_browsing_controller_packet_handler(uint8_t packet_type, uint16
 
             switch(browsing_connection->pdu_id){
                 case AVRCP_PDU_ID_CHANGE_PATH:
+                    if ((pos + 4) > size) break;
+
+                    // num_items
+                    packet[pos-1] = AVRCP_BROWSING_PATH_NUM_ITEMS;
+                    (*avrcp_controller_context.browsing_avrcp_callback)(AVRCP_BROWSING_DATA_PACKET, channel, packet+pos-1, 5);
+                    pos += 4;
                     break;
+
                 case AVRCP_PDU_ID_SET_ADDRESSED_PLAYER:
                     break;
+
                 case AVRCP_PDU_ID_GET_TOTAL_NUMBER_OF_ITEMS:
+                    if ((pos + 6) > size) break;
+
+                    browsing_connection->uid_counter =  big_endian_read_16(packet, pos);
+                    pos += 2;
+                    // num_items
+                    packet[pos-1] = AVRCP_BROWSING_PATH_NUM_ITEMS;
+                    (*avrcp_controller_context.browsing_avrcp_callback)(AVRCP_BROWSING_DATA_PACKET, channel, packet+pos-1, 5);
+                    pos += 4;
                     break;
+
                 case AVRCP_PDU_ID_SET_BROWSED_PLAYER:
                     if ((pos + 9) > size) break;
 
                     browsing_connection->uid_counter =  big_endian_read_16(packet, pos);
                     pos += 2;
                     // num_items
+                    packet[pos-1] = AVRCP_BROWSING_PATH_NUM_ITEMS;
+                    (*avrcp_controller_context.browsing_avrcp_callback)(AVRCP_BROWSING_DATA_PACKET, channel, packet+pos-1, 5);
                     pos += 4;
                     // charset
                     pos += 2;
