@@ -68,6 +68,16 @@ void avrcp_browsing_controller_init(void);
 void avrcp_browsing_controller_register_packet_handler(btstack_packet_handler_t callback);
 
 /**
+ * @brief Retrieve a listing of the contents of a folder.
+ * @param scope    0-player list, 1-virtual file system, 2-search, 3-now playing
+ * @param start_item
+ * @param end_item
+ * @param attribute_count
+ * @param attribute_list
+ **/
+uint8_t avrcp_browsing_controller_get_folder_items(uint16_t avrcp_browsing_cid, avrcp_browsing_scope_t scope, uint32_t start_item, uint32_t end_item, uint32_t attr_bitmap);
+
+/**
  * @brief Retrieve a list of media players.
  * @param avrcp_browsing_cid
  * @param start_item

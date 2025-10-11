@@ -551,15 +551,7 @@ uint8_t avrcp_browsing_controller_get_item_attributes_for_scope(uint16_t avrcp_b
     return ERROR_CODE_SUCCESS;
 }
 
-/**
- * @brief Retrieve a listing of the contents of a folder.
- * @param scope    0-player list, 1-virtual file system, 2-search, 3-now playing  
- * @param start_item
- * @param end_item
- * @param attribute_count
- * @param attribute_list
- **/
-static uint8_t avrcp_browsing_controller_get_folder_items(uint16_t avrcp_browsing_cid, avrcp_browsing_scope_t scope, uint32_t start_item, uint32_t end_item, uint32_t attr_bitmap){
+uint8_t avrcp_browsing_controller_get_folder_items(uint16_t avrcp_browsing_cid, avrcp_browsing_scope_t scope, uint32_t start_item, uint32_t end_item, uint32_t attr_bitmap){
     avrcp_connection_t * avrcp_connection = avrcp_get_connection_for_browsing_cid_for_role(AVRCP_CONTROLLER, avrcp_browsing_cid);
     if (!avrcp_connection){
         log_error("avrcp_browsing_controller_disconnect: could not find a connection.");
